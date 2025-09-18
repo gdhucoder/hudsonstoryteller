@@ -1,67 +1,260 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>胡萝卜音乐播放器</title>
-  <link rel="stylesheet" href="styles.css">
-  <meta name="theme-color" content="#ffffff">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Hudson讲故事</title>
+<meta name="theme-color" content="#ffffff">
+<style>
+  :root{--bg:#fff;--card:#f6f7f9;--fg:#111;--muted:#6b7280;--pri:#0b6cff;--line:#e5e7eb}
+  *{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Noto Sans CJK SC","Microsoft Yahei",Arial,sans-serif}
+  .app{display:flex;flex-direction:column;height:100%}
+  .topbar{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
+  .title{font-size:16px;font-weight:700}
+  .hint{font-size:12px;color:var(--muted)}
+  .list{flex:1;overflow:auto;padding:10px 10px 140px;background:var(--card)}
+  .group{font-size:12px;color:var(--muted);margin:10px 2px 6px}
+  .track{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:#fff;border:1px solid var(--line);margin-bottom:10px;cursor:pointer}
+  .art{width:44px;height:44px;border-radius:10px;background:linear-gradient(45deg,#a0c4ff,#bdb2ff);overflow:hidden;flex:0 0 44px}
+  .art img{width:100%;height:100%;object-fit:cover;display:block}
+  .twrap{flex:1;min-width:0}
+  .t1{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .t2{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .active{outline:2px solid #bfd3ff;background:#f0f6ff}
+  .empty{color:var(--muted);font-size:14px;text-align:center;padding:28px}
+  .controls{position:sticky;bottom:0;z-index:20;background:#fff;border-top:1px solid var(--line);padding:10px 12px 14px;display:flex;flex-direction:column;gap:10px}
+  .now{display:flex;align-items:center;gap:10px}
+  .now .art{width:52px;height:52px}
+  .meta{min-width:0}.meta .t1{font-size:16px}
+  .row{display:flex;align-items:center;gap:10px}
+  .time{font-variant-numeric:tabular-nums;min-width:44px;text-align:center;color:var(--muted);font-size:12px}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:999px;background:#e5e7eb;outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:#0b6cff;border:2px solid #fff;box-shadow:0 0 0 2px rgba(11,108,255,.25)}
+  .bar{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap}
+  .cbtn{min-width:62px;height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:18px;padding:0 14px}
+  .cbtn.main{min-width:120px;font-size:18px;background:var(--pri);color:#fff;border-color:var(--pri)}
+  .tog{font-size:13px;border-radius:999px;border:1px solid var(--line);padding:6px 10px;background:#fff}
+  .tog.active{background:#eef3ff;border-color:#bfd3ff}
+</style>
 </head>
 <body>
+<div class="app">
   <header class="topbar">
-    <h1>胡萝卜音乐播放器</h1>
-    <div class="mode-badge" id="modeBadge">JSON清单模式</div>
+    <div class="title">胡萝卜🥕讲故事</div>
+    <!-- <div class="hint">读取 /audio/</div> -->
   </header>
 
-  <main class="container">
-    <aside class="playlist" id="playlist"></aside>
+  <section class="list" id="list">
+    <div class="empty">
+      请将 MP3 放入 <b>/audio/</b> 目录。<br>
+      优先读取 <code>/audio/stories.json</code>；无则读取 <code>/audio/index.txt</code>；仍无则自动探测常见命名。
+    </div>
+  </section>
 
-    <section class="player">
-      <div class="cover">
-        <img id="coverImg" src="assets/cover-default.svg" alt="cover">
-      </div>
-
+  <footer class="controls">
+    <div class="now">
+      <div class="art" id="nowCover"></div>
       <div class="meta">
-        <div class="title" id="trackTitle">请选择一个故事</div>
-        <div class="subtitle" id="trackSubtitle"></div>
+        <div class="t1" id="nowTitle">未选择</div>
+        <div class="t2" id="nowSub">—</div>
       </div>
+    </div>
 
-      <audio id="audio" preload="metadata" crossorigin="anonymous"></audio>
+    <div class="row">
+      <span class="time" id="cur">00:00</span>
+      <input type="range" id="seek" min="0" max="100" value="0" step="0.1" aria-label="进度条">
+      <span class="time" id="dur">00:00</span>
+    </div>
 
-      <div class="controls">
-        <button id="btnPrev" aria-label="上一首">⏮</button>
-        <button id="btnPlay" aria-label="播放/暂停">▶️</button>
-        <button id="btnNext" aria-label="下一首">⏭</button>
-        <button id="btnLoop" aria-label="循环">🔁</button>
-        <button id="btnShuffle" aria-label="随机">🔀</button>
-      </div>
-
-      <div class="seek">
-        <span id="currentTime">00:00</span>
-        <input type="range" id="seekBar" min="0" max="100" value="0" step="0.1" />
-        <span id="duration">00:00</span>
-      </div>
-
-      <div class="volume">
-        <span>音量</span>
-        <input type="range" id="volBar" min="0" max="1" value="1" step="0.01" />
-      </div>
-
-      <details class="tips">
-        <summary>使用说明</summary>
-        <ul>
-          <li>点击左侧列表播放；支持播放/暂停、上一首/下一首、随机、循环。</li>
-          <li>通过 GitHub 更新 <code>/audio</code> 下的 MP3 与 <code>/data/stories.json</code>。</li>
-        </ul>
-      </details>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <span>© <span id="year"></span> 故事播放器</span>
+    <div class="bar">
+      <button class="cbtn" id="prev" aria-label="上一曲">⏮</button>
+      <button class="cbtn main" id="play" aria-label="播放/暂停">▶️ 播放</button>
+      <button class="cbtn" id="next" aria-label="下一曲">⏭</button>
+    </div>
+    <div class="bar">
+      <button class="tog" id="loop" aria-label="循环">循环</button>
+      <button class="tog" id="shuffle" aria-label="随机">随机</button>
+    </div>
   </footer>
+</div>
 
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+<audio id="audio" preload="metadata"></audio>
+
+<script>
+const $ = sel => document.querySelector(sel);
+const listEl = $("#list");
+const audioEl = $("#audio");
+const nowTitle=$("#nowTitle");
+const nowSub  =$("#nowSub");
+const nowCover=$("#nowCover");
+const playBtn = $("#play");
+const prevBtn = $("#prev");
+const nextBtn = $("#next");
+const loopBtn = $("#loop");
+const shufBtn = $("#shuffle");
+const seekEl  = $("#seek");
+const curEl   = $("#cur");
+const durEl   = $("#dur");
+
+let tracks = []; // [{title, artist, album, url, cover, file}]
+let idx = -1;
+let seeking = false;
+let isLoop = false;
+let isShuffle = false;
+
+function s2t(sec){ if(!isFinite(sec)) return "00:00"; const s=Math.floor(sec%60).toString().padStart(2,"0"); const m=Math.floor(sec/60).toString().padStart(2,"0"); return `${m}:${s}`; }
+function titleFromName(name){ try{name=decodeURIComponent(name);}catch{}; return name.replace(/\.(mp3|m4a|aac|wav|ogg|flac)$/i,""); }
+
+function normalizeItems(items=[]) {
+  return items.map((x,i)=>{
+    const file = (x.file||"").trim();
+    const url  = (x.url||"").trim() || (file ? `/audio/${encodeURIComponent(file)}` : "");
+    return {
+      title: x.title?.trim() || (file ? titleFromName(file) : `Track ${i+1}`),
+      artist: x.artist?.trim() || "",
+      album: x.album?.trim() || "",
+      cover: x.cover?.trim() || "",
+      url, file
+    };
+  }).filter(t=>!!t.url);
+}
+
+function groupByAlbum(arr){
+  const map = new Map();
+  arr.forEach((t,i)=>{
+    const key = t.album || "未分专辑";
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(i);
+  });
+  return map;
+}
+
+function render(){
+  listEl.innerHTML = "";
+  if (!tracks.length){
+    listEl.innerHTML = '<div class="empty">未发现可播放音频。请检查 /audio/ 目录或 stories.json 格式。</div>';
+    return;
+  }
+  const groups = groupByAlbum(tracks);
+  const frag = document.createDocumentFragment();
+  groups.forEach((idxes, album)=>{
+    const g = document.createElement("div");
+    g.className = "group";
+    g.textContent = album;
+    frag.appendChild(g);
+    idxes.forEach(i=>{
+      const t = tracks[i];
+      const row = document.createElement("div");
+      row.className = "track"+(i===idx?" active":"");
+      row.innerHTML = `
+        <div class="art">${t.cover ? `<img src="${t.cover}" alt="">` : ""}</div>
+        <div class="twrap">
+          <div class="t1">${t.title}</div>
+          <div class="t2">${t.artist || (t.file || t.url)}</div>
+        </div>`;
+      row.addEventListener("click", ()=> load(i, true));
+      frag.appendChild(row);
+    });
+  });
+  listEl.appendChild(frag);
+}
+
+function load(i, autoplay=false){
+  if (i<0 || i>=tracks.length) return;
+  idx = i;
+  const t = tracks[i];
+  audioEl.src = t.url;
+  nowTitle.textContent = t.title;
+  nowSub.textContent   = t.artist || t.album || (t.file || t.url);
+  nowCover.innerHTML   = t.cover ? `<img src="${t.cover}" alt="">` : "";
+  document.querySelectorAll(".track").forEach((el,k)=>el.classList.toggle("active", k===i));
+  if (autoplay) play();
+}
+
+function play(){ audioEl.play().then(()=>{ playBtn.textContent="⏸ 暂停"; }).catch(()=>{}); }
+function pause(){ audioEl.pause(); playBtn.textContent="▶️ 播放"; }
+function next(){
+  if (!tracks.length) return;
+  if (isShuffle && tracks.length>1){
+    let j = Math.floor(Math.random()*tracks.length);
+    if (j===idx) j = (j+1)%tracks.length;
+    load(j, true);
+  } else {
+    load((idx+1)%tracks.length, true);
+  }
+}
+function prev(){ if (!tracks.length) return; load((idx-1+tracks.length)%tracks.length, true); }
+
+playBtn.addEventListener("click", ()=> audioEl.paused?play():pause());
+nextBtn.addEventListener("click", next);
+prevBtn.addEventListener("click", prev);
+audioEl.addEventListener("ended", ()=>{ if (isLoop) load(idx, true); else next(); });
+
+// Seek bar
+audioEl.addEventListener("timeupdate", ()=>{
+  if (seeking) return;
+  seekEl.value = ((audioEl.currentTime/(audioEl.duration||1))*100)||0;
+  curEl.textContent = s2t(audioEl.currentTime);
+  durEl.textContent = s2t(audioEl.duration);
+});
+seekEl.addEventListener("input", ()=> seeking=true);
+seekEl.addEventListener("change", ()=>{
+  const pct = parseFloat(seekEl.value||"0")/100;
+  audioEl.currentTime = (audioEl.duration||0)*pct; seeking=false;
+});
+
+// Loop & Shuffle buttons
+loopBtn.addEventListener("click", ()=>{ isLoop = !isLoop; loopBtn.classList.toggle("active", isLoop); });
+shufBtn.addEventListener("click", ()=>{ isShuffle = !isShuffle; shufBtn.classList.toggle("active", isShuffle); });
+
+// ---------- 数据源：stories.json → index.txt → 探测命名 ----------
+async function loadFromStoriesJson(){
+  const res = await fetch("/audio/stories.json", { cache:"no-store" });
+  if (!res.ok) throw new Error("no stories.json");
+  const data = await res.json();
+  if (!Array.isArray(data?.tracks)) throw new Error("invalid stories.json");
+  return normalizeItems(data.tracks);
+}
+async function loadFromIndexTxt(){
+  const res = await fetch("/audio/index.txt", { cache:"no-store" });
+  if (!res.ok) throw new Error("no index.txt");
+  const lines = (await res.text()).split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+  const exts = /\.(mp3|m4a|aac|wav|ogg|flac)$/i;
+  return normalizeItems(lines.filter(n=>exts.test(n)).map(n=>({ file:n, album:"未分专辑" })));
+}
+async function probeCommon(){
+  const candidates = [];
+  for (let i=1;i<=200;i++) candidates.push(`${i}.mp3`);
+  for (let i=1;i<=200;i++) candidates.push(`${String(i).padStart(3,"0")}.mp3`);
+  for (let i=1;i<=200;i++) candidates.push(`track-${String(i).padStart(3,"0")}.mp3`);
+  for (let i=1;i<=200;i++) candidates.push(`story-${String(i).padStart(3,"0")}.mp3`);
+  const exist = [];
+  const batch = 20;
+  for (let p=0;p<candidates.length;p+=batch){
+    const part = candidates.slice(p,p+batch);
+    await Promise.all(part.map(async name=>{
+      try{
+        const r = await fetch(`/audio/${encodeURIComponent(name)}`, { method:"HEAD", cache:"no-store" });
+        if (r.ok) exist.push({ title: titleFromName(name), file: name, url:`/audio/${encodeURIComponent(name)}`, album:"未分专辑" });
+      }catch{}
+    }));
+    if (exist.length>=1) break; // 找到一些就够用
+  }
+  return exist;
+}
+
+(async function init(){
+  try { tracks = await loadFromStoriesJson(); }
+  catch(e1){
+    try { tracks = await loadFromIndexTxt(); }
+    catch(e2){
+      try { tracks = await probeCommon(); }
+      catch(e3){ tracks = []; }
+    }
+  }
+  render();
+  if (tracks.length) load(0, false);
+})();
+</script>
 </body>
 </html>

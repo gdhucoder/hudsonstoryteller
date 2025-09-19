@@ -8,77 +8,77 @@
                 "file": "01-西游记-人参果.mp3"
             },
             {
-                "title": "Little Puddle",
-                "artist": "PipPosy",
-                "album": "PipPosy", 
+                "title": "Little Puddle 小水坑",
+                "artist": "Pip and Posy",
+                "album": "Pip and Posy", 
                 "cover": "audio/cover/puddle.png",
                 "file": "02-pip-posy-the-little-puddle-2.mp3"
             },
             {
-                "title": "Friendly Snail",
-                "artist": "PipPosy",
-                "album": "PipPosy", 
+                "title": "Friendly Snail 友善的蜗牛",
+                "artist": "Pip and Posy",
+                "album": "Pip and Posy", 
                 "cover": "audio/cover/snail.png",
                 "file": "03-Pip-and-Posy_-The-Friendly-Snail.mp3"
             },
             {
-                "title": "Big Balloon",
-                "artist": "PipPosy",
-                "album": "PipPosy", 
+                "title": "Big Balloon 大气球",
+                "artist": "Pip and Posy",
+                "album": "Pip and Posy", 
                 "cover": "audio/cover/balloons.png",
                 "file": "04-pip-and-posy-big-balloon.mp3"
             },
             {
-                "title": "Bedtime Frog",
-                "artist": "PipPosy",
-                "album": "PipPosy", 
+                "title": "Bedtime Frog 伴眠青蛙",
+                "artist": "Pip and Posy",
+                "album": "Pip and Posy", 
                 "cover": "audio/cover/frog.png",
                 "file": "05-Pip-and-Posy-The-Bedtime-Frog.mp3"
             },
             {
-                "title": "Birthday Party",
-                "artist": "PipPosy",
-                "album": "PipPosy", 
+                "title": "Birthday Party 生日聚会",
+                "artist": "Pip and Posy",
+                "album": "Pip and Posy", 
                 "cover": "audio/cover/happy-birthday.png",
                 "file": "06-Pip-and-Posy-The-Birthday-Party_BB.mp3"
             },
             {
-                "title": "Christmas Tree",
-                "artist": "PipPosy",
-                "album": "PipPosy", 
+                "title": "Christmas Tree 圣诞树",
+                "artist": "Pip and Posy",
+                "album": "Pip and Posy", 
                 "cover": "audio/cover/christmas-tree.png",
                 "file": "07-Pip-and-Posy-The-Christmas-Tree.mp3"
             },
             {
-                "title": "The New Friend",
-                "artist": "PipPosy",
-                "album": "PipPosy", 
+                "title": "The New Friend 新朋友",
+                "artist": "Pip and Posy",
+                "album": "Pip and Posy", 
                 "cover": "audio/cover/friendship.png",
                 "file": "08-pip-and-posy-the-new-friend.mp3"
             },
             {
-                "title": "Scary Monster",
-                "artist": "PipPosy",
-                "album": "PipPosy", 
+                "title": "Scary Monster 哇！！！怪兽！！！",
+                "artist": "Pip and Posy",
+                "album": "Pip and Posy", 
                 "cover": "audio/cover/monster.png",
                 "file": "09-pip-and-posy-the-scary-monster.mp3"
             },
             {
-                "title": "Snowy Day",
-                "artist": "PipPosy",
-                "album": "PipPosy", 
+                "title": "Snowy Day 下大雪的一天",
+                "artist": "Pip and Posy",
+                "album": "Pip and Posy", 
                 "cover": "audio/cover/snow.png",
                 "file": "10-pip-and-posy-the-snowy-day.mp3"
             },
             {
-                "title": "Super Scooter",
-                "artist": "PipPosy",
-                "album": "PipPosy", 
+                "title": "Super Scooter 超级滑板车",
+                "artist": "Pip and Posy",
+                "album": "Pip and Posy", 
                 "cover": "audio/cover/hand-gesture.png",
                 "file": "11-pip-and-posy-the-super-scooter.mp3"
             },
             {
-                "title": "Giant",
+                "title": "Giant 巨人先生",
                 "artist": "Gruffalo",
                 "album": "Gruffalo", 
                 "cover": "audio/cover/giant.png",
@@ -90,7 +90,34 @@
                 "album": "Gruffalo", 
                 "cover": "audio/cover/monster.png",
                 "file": "13-gruffalo-longling_v2.mp3"
+            },
+            {
+                "title": "Postman Bear 小熊邮递员",
+                "artist": "Animal",
+                "album": "Animal", 
+                "cover": "audio/cover/bear.png",
+                "file": "14-postman-bear.mp3"
+            },
+            {
+                "title": "Squirrel Snowman 松鼠 雪人",
+                "artist": "Animal",
+                "album": "Animal", 
+                "cover": "audio/cover/squirrel.png",
+                "file": "15-squirrel-snowman.mp3"
+            },
+            {
+                "title": "Mr Fox 狐狸先生",
+                "artist": "Animal",
+                "album": "Animal", 
+                "cover": "audio/cover/fox.png",
+                "file": "16-狐狸先生.mp3"
+            },
+            {
+                "title": "Frog Day Out 青蛙的一天",
+                "artist": "Animal",
+                "album": "Animal", 
+                "cover": "audio/cover/frog.png",
+                "file": "17-frog-day-out.mp3"
             }
-            
   ]
 }

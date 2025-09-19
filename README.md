@@ -9,7 +9,7 @@
 3. 推送到 GitHub。
 4. Netlify 后台 **Add new site → Import from Git**，选择该仓库；无需 Build 命令、发布目录留空（站点根目录）。
 
-上线地址示例：`https://your-site.netlify.app/`  
+上线地址示例：`https://hudsonstoryteller.netlify.app/`  
 音频直链示例：`https://your-site.netlify.app/audio/demo-1.mp3`
 
 ## JSON 清单格式

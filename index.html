@@ -135,7 +135,7 @@ function groupByAlbum(arr){
 function render(){
   listEl.innerHTML = "";
   if (!tracks.length){
-    listEl.innerHTML = '<div class="empty">未发现可播放音频。请检查 /audio/ 目录或 stories.json 格式。</div>';
+    listEl.innerHTML = '<div class="empty">加载中...</div>';
     return;
   }
   const groups = groupByAlbum(tracks);

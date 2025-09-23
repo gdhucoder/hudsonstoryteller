@@ -1,14 +1,14 @@
 {
   "tracks": [
             {
-                "title": "齐天大圣（上）",
+                "title": "1.齐天大圣（上）",
                 "artist": "西游记",
                 "album": "睡前精选", 
                 "cover": "audio/cover/monkey.png",
                 "file": "01-齐天大圣（上）.mp3"
             },
             {
-                "title": "齐天大圣（下）",
+                "title": "1.齐天大圣（下）",
                 "artist": "西游记",
                 "album": "睡前精选", 
                 "cover": "audio/cover/monkey.png",

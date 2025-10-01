@@ -20,7 +20,56 @@
                 "album": "睡前精选", 
                 "cover": "audio/cover/gyeongbokgung-palace.png",
                 "file": "01-02-大闹天宫（上）.mp3"
-            },            
+            },
+            {
+                "title": "2.大闹天宫（下）",
+                "artist": "西游记",
+                "album": "睡前精选", 
+                "cover": "audio/cover/gyeongbokgung-palace.png",
+                "file": "01-02-大闹天宫（下）.mp3"
+            },
+            {
+                "title": "3.紧箍咒（上）",
+                "artist": "西游记",
+                "album": "睡前精选", 
+                "cover": "audio/cover/gyeongbokgung-palace.png",
+                "file": "01-03-紧箍咒（上）.mp3"
+            },     
+            {
+                "title": "3.紧箍咒（下）",
+                "artist": "西游记",
+                "album": "睡前精选", 
+                "cover": "audio/cover/gyeongbokgung-palace.png",
+                "file": "01-03-紧箍咒（下）.mp3"
+            },
+            {
+                "title": "4.猪八戒拜师（上）",
+                "artist": "西游记",
+                "album": "睡前精选", 
+                "cover": "audio/cover/skeleton.png",
+                "file": "01-04-猪八戒拜师（上）.mp3"
+            },
+            {
+                "title": "4.猪八戒拜师（下）",
+                "artist": "西游记",
+                "album": "睡前精选", 
+                "cover": "audio/cover/skeleton.png",
+                "file": "01-04-猪八戒拜师（下）.mp3"
+            },
+            {
+                "title": "5.流沙河收徒（上）",
+                "artist": "西游记",
+                "album": "睡前精选", 
+                "cover": "audio/cover/monkey.png",
+                "file": "01-05-流沙河收徒（上）.mp3"
+            },
+            {
+                "title": "5.流沙河收徒（下）",
+                "artist": "西游记",
+                "album": "睡前精选", 
+                "cover": "audio/cover/monkey.png",
+                "file": "01-05-流沙河收徒（下）.mp3"
+            },                     
             {
                 "title": "偷吃人参果",
                 "artist": "西游记",

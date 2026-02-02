@@ -71,11 +71,18 @@
                 "file": "01-05-流沙河收徒（下）.mp3"
             },                     
             {
-                "title": "6.偷吃人参果",
+                "title": "6.偷吃人参果（上）",
                 "artist": "西游记",
                 "album": "睡前精选", 
                 "cover": "audio/cover/monkey.png",
-                "file": "01-西游记-人参果.mp3"
+                "file": "01-06-偷吃人参果（上）.mp3"
+            },
+            {
+                "title": "6.偷吃人参果（下）",
+                "artist": "西游记",
+                "album": "睡前精选", 
+                "cover": "audio/cover/monkey.png",
+                "file": "01-06-偷吃人参果（上）.mp3"
             },
             {
                 "title": "Little Puddle 小水坑",

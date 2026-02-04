@@ -82,7 +82,21 @@
                 "artist": "西游记",
                 "album": "睡前精选", 
                 "cover": "audio/cover/monkey.png",
-                "file": "01-06-偷吃人参果（上）.mp3"
+                "file": "westtravel/06-偷吃人参果（下）.mp3"
+            },
+            {
+                "title": "7.三打白骨精（上）",
+                "artist": "西游记",
+                "album": "睡前精选", 
+                "cover": "audio/cover/monkey.png",
+                "file": "westtravel/07-三打白骨精（上）.mp3"
+            },
+            {
+                "title": "7.三打白骨精（下）",
+                "artist": "西游记",
+                "album": "睡前精选", 
+                "cover": "audio/cover/monkey.png",
+                "file": "westtravel/07-三打白骨精（下）.mp3"
             },
             {
                 "title": "Little Puddle 小水坑",

@@ -2,47 +2,113 @@
 <html lang="zh-CN">
 <head>
   <!-- Cloudflare Web Analytics -->
-   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e5386f6b4daa409f8451babd2b0c325f"}'></script>
-   <!-- End Cloudflare Web Analytics -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Hudson讲故事</title>
-<link rel="icon" type="image/png" href="favicon.png">
-  <!-- 推荐再加一行，以适配苹果/移动端 -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e5386f6b4daa409f8451babd2b0c325f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Hudson讲故事</title>
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
-<meta name="theme-color" content="#ffffff">
-<style>
-  :root{--bg:#fff;--card:#f6f7f9;--fg:#111;--muted:#6b7280;--pri:#0b6cff;--line:#e5e7eb}
-  *{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Noto Sans CJK SC","Microsoft Yahei",Arial,sans-serif}
-  .app{display:flex;flex-direction:column;height:100%}
-  .topbar{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
-  .title{font-size:16px;font-weight:700}
-  .hint{font-size:12px;color:var(--muted)}
-  .list{flex:1;overflow:auto;padding:10px 10px 140px;background:var(--card)}
-  .group{font-size:12px;color:var(--muted);margin:10px 2px 6px}
-  .track{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:#fff;border:1px solid var(--line);margin-bottom:10px;cursor:pointer}
-  .art{width:44px;height:44px;border-radius:10px;background:linear-gradient(45deg,#a0c4ff,#bdb2ff);overflow:hidden;flex:0 0 44px}
-  .art img{width:100%;height:100%;object-fit:cover;display:block}
-  .twrap{flex:1;min-width:0}
-  .t1{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .t2{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .active{outline:2px solid #bfd3ff;background:#f0f6ff}
-  .empty{color:var(--muted);font-size:14px;text-align:center;padding:28px}
-  .controls{position:sticky;bottom:0;z-index:20;background:#fff;border-top:1px solid var(--line);padding:10px 12px 14px;display:flex;flex-direction:column;gap:10px}
-  .now{display:flex;align-items:center;gap:10px}
-  .now .art{width:52px;height:52px}
-  .meta{min-width:0}.meta .t1{font-size:16px}
-  .row{display:flex;align-items:center;gap:10px}
-  .time{font-variant-numeric:tabular-nums;min-width:44px;text-align:center;color:var(--muted);font-size:12px}
-  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:999px;background:#e5e7eb;outline:none}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:#0b6cff;border:2px solid #fff;box-shadow:0 0 0 2px rgba(11,108,255,.25)}
-  .bar{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap}
-  .cbtn{min-width:62px;height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:18px;padding:0 14px}
-  .cbtn.main{min-width:120px;font-size:18px;background:var(--pri);color:#fff;border-color:var(--pri)}
-  .tog{font-size:13px;border-radius:999px;border:1px solid var(--line);padding:6px 10px;background:#fff}
-  .tog.active{background:#eef3ff;border-color:#bfd3ff}
-</style>
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    :root{
+      --bg:#fff;--card:#f6f7f9;--fg:#111;--muted:#6b7280;--pri:#0b6cff;--line:#e5e7eb;
+      --shadow: 0 8px 24px rgba(17,24,39,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Noto Sans CJK SC","Microsoft Yahei",Arial,sans-serif}
+    .app{display:flex;flex-direction:column;height:100%}
+    .topbar{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);
+      padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .title{font-size:16px;font-weight:700;white-space:nowrap}
+    .hint{font-size:12px;color:var(--muted);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:62vw}
+
+    .list{flex:1;overflow:auto;padding:12px 12px 160px;background:var(--card)}
+
+    .empty{color:var(--muted);font-size:14px;text-align:center;padding:28px}
+
+    /* Album grid */
+    /* Album list (mobile-first) */
+    .albumGrid{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    /* 专辑卡片撑满一行 */
+    .albumCard{
+      width:100%;
+    }
+
+    /* 可选：让封面稍大一点，手机上更好点按 */
+    .cover{width:56px;height:56px;flex:0 0 56px}
+    @media (min-width:720px){ .albumGrid{grid-template-columns:repeat(3, minmax(0,1fr));} }
+
+    .albumCard{
+      background:#fff;border:1px solid var(--line);border-radius:16px;
+      padding:12px;display:flex;flex-direction:column;gap:10px;
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      user-select:none;
+      transition:transform .06s ease, box-shadow .06s ease;
+    }
+    .albumCard:active{transform:scale(.99)}
+    .albumTop{display:flex;align-items:center;gap:10px}
+    .cover{width:52px;height:52px;border-radius:12px;flex:0 0 52px;
+      background:linear-gradient(45deg,#a0c4ff,#bdb2ff);overflow:hidden}
+    .cover img{width:100%;height:100%;object-fit:cover;display:block}
+    .albumMeta{min-width:0;flex:1}
+    .albumName{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .albumInfo{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    .pillRow{display:flex;gap:8px;flex-wrap:wrap}
+    .pill{font-size:12px;color:#1f2937;background:#f3f4f6;border:1px solid var(--line);border-radius:999px;padding:6px 10px}
+    .pill.pri{background:#eef3ff;border-color:#bfd3ff;color:#1d4ed8}
+
+    /* Expanded album panel */
+    .albumPanel{
+      margin-top:10px;
+      border-top:1px dashed var(--line);
+      padding-top:10px;
+      display:none;
+    }
+    .albumCard.expanded .albumPanel{display:block}
+    .trackList{display:flex;flex-direction:column;gap:8px}
+
+    .track{
+      display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;
+      background:#fff;border:1px solid var(--line);cursor:pointer;
+    }
+    .art{width:44px;height:44px;border-radius:10px;background:linear-gradient(45deg,#a0c4ff,#bdb2ff);overflow:hidden;flex:0 0 44px}
+    .art img{width:100%;height:100%;object-fit:cover;display:block}
+    .twrap{flex:1;min-width:0}
+    .t1{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .t2{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .active{outline:2px solid #bfd3ff;background:#f0f6ff}
+
+    /* Controls */
+    .controls{position:sticky;bottom:0;z-index:20;background:#fff;border-top:1px solid var(--line);
+      padding:10px 12px 14px;display:flex;flex-direction:column;gap:10px}
+    .now{display:flex;align-items:center;gap:10px}
+    .now .art{width:52px;height:52px}
+    .meta{min-width:0}.meta .t1{font-size:16px}
+    .row{display:flex;align-items:center;gap:10px}
+    .time{font-variant-numeric:tabular-nums;min-width:44px;text-align:center;color:var(--muted);font-size:12px}
+    input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:999px;background:#e5e7eb;outline:none}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;
+      background:#0b6cff;border:2px solid #fff;box-shadow:0 0 0 2px rgba(11,108,255,.25)}
+    .bar{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap}
+    .cbtn{min-width:62px;height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:18px;padding:0 14px}
+    .cbtn.main{min-width:120px;font-size:18px;background:var(--pri);color:#fff;border-color:var(--pri)}
+    .tog{font-size:13px;border-radius:999px;border:1px solid var(--line);padding:6px 10px;background:#fff}
+    .tog.active{background:#eef3ff;border-color:#bfd3ff}
+
+    /* small helper */
+    .rightHint{margin-left:auto;font-size:12px;color:var(--muted)}
+  </style>
 </head>
+
 <body>
 <div class="app">
   <header class="topbar">
@@ -51,11 +117,7 @@
   </header>
 
   <section class="list" id="list">
-    <div class="empty">
-      <!-- 请将 MP3 放入 <b>/audio/</b> 目录。<br>
-      优先读取 <code>/audio/stories.json</code>；无则读取 <code>/audio/index.txt</code>；仍无则自动探测常见命名。 -->
-      加载中...
-    </div>
+    <div class="empty">加载中...</div>
   </section>
 
   <footer class="controls">
@@ -109,10 +171,23 @@ let seeking = false;
 let isLoop = false;
 let isShuffle = false;
 
-function s2t(sec){ if(!isFinite(sec)) return "00:00"; const s=Math.floor(sec%60).toString().padStart(2,"0"); const m=Math.floor(sec/60).toString().padStart(2,"0"); return `${m}:${s}`; }
-function titleFromName(name){ try{name=decodeURIComponent(name);}catch{}; return name.replace(/\.(mp3|m4a|aac|wav|ogg|flac)$/i,""); }
+// album -> { name, idxes:[], cover, count }
+let albumOrder = [];
+let albumMap = new Map();
+let expandedAlbum = ""; // only expand one at a time
 
-function normalizeItems(items=[]) {
+function s2t(sec){
+  if(!isFinite(sec)) return "00:00";
+  const s=Math.floor(sec%60).toString().padStart(2,"0");
+  const m=Math.floor(sec/60).toString().padStart(2,"0");
+  return `${m}:${s}`;
+}
+function titleFromName(name){
+  try{name=decodeURIComponent(name);}catch{}
+  return name.replace(/\.(mp3|m4a|aac|wav|ogg|flac)$/i,"");
+}
+
+function normalizeItems(items=[]){
   return items.map((x,i)=>{
     const file = (x.file||"").trim();
     const url  = (x.url||"").trim() || (file ? `/audio/${encodeURIComponent(file)}` : "");
@@ -126,44 +201,106 @@ function normalizeItems(items=[]) {
   }).filter(t=>!!t.url);
 }
 
-function groupByAlbum(arr){
-  const map = new Map();
-  arr.forEach((t,i)=>{
+function buildAlbums(){
+  albumMap = new Map();
+  tracks.forEach((t,i)=>{
     const key = t.album || "未分专辑";
-    if (!map.has(key)) map.set(key, []);
-    map.get(key).push(i);
+    if (!albumMap.has(key)){
+      albumMap.set(key, { name:key, idxes:[], cover:"", count:0 });
+    }
+    const a = albumMap.get(key);
+    a.idxes.push(i);
+    a.count++;
+    // pick first available cover as album cover
+    if (!a.cover && t.cover) a.cover = t.cover;
   });
-  return map;
+  albumOrder = Array.from(albumMap.values()).sort((a,b)=>{
+    // keep “未分专辑” last
+    if (a.name==="未分专辑" && b.name!=="未分专辑") return 1;
+    if (b.name==="未分专辑" && a.name!=="未分专辑") return -1;
+    return a.name.localeCompare(b.name, "zh-Hans-CN-u-co-pinyin");
+  });
+  if (!expandedAlbum && albumOrder.length) expandedAlbum = albumOrder[0].name;
 }
 
 function render(){
   listEl.innerHTML = "";
   if (!tracks.length){
-    listEl.innerHTML = '<div class="empty">加载中...</div>';
+    listEl.innerHTML = '<div class="empty">没有找到音频。请检查 /audio/stories.json 或 /audio/index.txt</div>';
     return;
   }
-  const groups = groupByAlbum(tracks);
-  const frag = document.createDocumentFragment();
-  groups.forEach((idxes, album)=>{
-    const g = document.createElement("div");
-    g.className = "group";
-    g.textContent = album;
-    frag.appendChild(g);
-    idxes.forEach(i=>{
-      const t = tracks[i];
-      const row = document.createElement("div");
-      row.className = "track"+(i===idx?" active":"");
-      row.innerHTML = `
-        <div class="art">${t.cover ? `<img src="${t.cover}" alt="">` : ""}</div>
-        <div class="twrap">
-          <div class="t1">${t.title}</div>
-          <div class="t2">${t.artist || (t.file || t.url)}</div>
-        </div>`;
-      row.addEventListener("click", ()=> load(i, true));
-      frag.appendChild(row);
+
+  const wrap = document.createElement("div");
+  wrap.className = "albumGrid";
+
+  albumOrder.forEach(a=>{
+    const card = document.createElement("div");
+    card.className = "albumCard" + (a.name===expandedAlbum ? " expanded" : "");
+    card.setAttribute("data-album", a.name);
+
+    const firstIdx = a.idxes[0];
+    const firstTrack = tracks[firstIdx];
+
+    card.innerHTML = `
+      <div class="albumTop">
+        <div class="cover">${a.cover ? `<img src="${a.cover}" alt="">` : ""}</div>
+        <div class="albumMeta">
+          <div class="albumName" title="${escapeHtml(a.name)}">${escapeHtml(a.name)}</div>
+          <div class="albumInfo">${a.count} 个音频${firstTrack?.artist ? " · " + escapeHtml(firstTrack.artist) : ""}</div>
+        </div>
+      </div>
+      <div class="pillRow">
+        <span class="pill pri">${a.name===expandedAlbum ? "已展开" : "点击展开"}</span>
+        <span class="pill">${idx>=0 && a.idxes.includes(idx) ? "正在播放此专辑" : "—"}</span>
+      </div>
+      <div class="albumPanel">
+        <div class="trackList"></div>
+      </div>
+    `;
+
+    // Build track list only when expanded (performance + cleaner)
+    if (a.name === expandedAlbum){
+      const trackList = card.querySelector(".trackList");
+      a.idxes.forEach(i=>{
+        const t = tracks[i];
+        const row = document.createElement("div");
+        row.className = "track" + (i===idx ? " active" : "");
+        row.innerHTML = `
+          <div class="art">${t.cover ? `<img src="${t.cover}" alt="">` : ""}</div>
+          <div class="twrap">
+            <div class="t1">${escapeHtml(t.title)}</div>
+            <div class="t2">${escapeHtml(t.artist || t.file || t.url)}</div>
+          </div>
+        `;
+        row.addEventListener("click", (ev)=>{
+          ev.stopPropagation();
+          load(i, true);
+          // keep album expanded
+        });
+        trackList.appendChild(row);
+      });
+    }
+
+    card.addEventListener("click", ()=>{
+      const name = card.getAttribute("data-album") || "";
+      expandedAlbum = (expandedAlbum === name) ? "" : name; // toggle collapse
+      render();
     });
+
+    wrap.appendChild(card);
   });
-  listEl.appendChild(frag);
+
+  listEl.appendChild(wrap);
+}
+
+// minimal HTML escaping for safety
+function escapeHtml(str){
+  return String(str ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#39;");
 }
 
 function load(i, autoplay=false){
@@ -174,12 +311,44 @@ function load(i, autoplay=false){
   nowTitle.textContent = t.title;
   nowSub.textContent   = t.artist || t.album || (t.file || t.url);
   nowCover.innerHTML   = t.cover ? `<img src="${t.cover}" alt="">` : "";
-  document.querySelectorAll(".track").forEach((el,k)=>el.classList.toggle("active", k===i));
+
+  // ensure the album of current track expanded (optional but practical)
+  const aName = t.album || "未分专辑";
+  if (expandedAlbum !== aName){
+    expandedAlbum = aName;
+    render();
+  } else {
+    // update active state inside expanded list
+    document.querySelectorAll(".track").forEach(el=>el.classList.remove("active"));
+    // re-render is simpler, but avoid unnecessary full repaint here
+    const albumCard = document.querySelector(`.albumCard[data-album="${cssEscape(aName)}"]`);
+    if (albumCard && albumCard.classList.contains("expanded")){
+      const rows = albumCard.querySelectorAll(".track");
+      // rows correspond to album idxes order
+      const a = albumMap.get(aName);
+      if (a){
+        const pos = a.idxes.indexOf(i);
+        if (pos>=0 && rows[pos]) rows[pos].classList.add("active");
+      }
+    }
+  }
+
   if (autoplay) play();
 }
 
-function play(){ audioEl.play().then(()=>{ playBtn.textContent="⏸ 暂停"; }).catch(()=>{}); }
-function pause(){ audioEl.pause(); playBtn.textContent="▶️ 播放"; }
+function cssEscape(s){
+  // basic CSS attr selector escape for quotes/backslashes
+  return String(s).replaceAll("\\","\\\\").replaceAll('"','\\"');
+}
+
+function play(){
+  audioEl.play().then(()=>{ playBtn.textContent="⏸ 暂停"; }).catch(()=>{});
+}
+function pause(){
+  audioEl.pause();
+  playBtn.textContent="▶️ 播放";
+}
+
 function next(){
   if (!tracks.length) return;
   if (isShuffle && tracks.length>1){
@@ -190,7 +359,10 @@ function next(){
     load((idx+1)%tracks.length, true);
   }
 }
-function prev(){ if (!tracks.length) return; load((idx-1+tracks.length)%tracks.length, true); }
+function prev(){
+  if (!tracks.length) return;
+  load((idx-1+tracks.length)%tracks.length, true);
+}
 
 playBtn.addEventListener("click", ()=> audioEl.paused?play():pause());
 nextBtn.addEventListener("click", next);
@@ -207,7 +379,8 @@ audioEl.addEventListener("timeupdate", ()=>{
 seekEl.addEventListener("input", ()=> seeking=true);
 seekEl.addEventListener("change", ()=>{
   const pct = parseFloat(seekEl.value||"0")/100;
-  audioEl.currentTime = (audioEl.duration||0)*pct; seeking=false;
+  audioEl.currentTime = (audioEl.duration||0)*pct;
+  seeking=false;
 });
 
 // Loop & Shuffle buttons
@@ -242,10 +415,10 @@ async function probeCommon(){
     await Promise.all(part.map(async name=>{
       try{
         const r = await fetch(`/audio/${encodeURIComponent(name)}`, { method:"HEAD", cache:"no-store" });
-        if (r.ok) exist.push({ title: titleFromName(name), file: name, url:`/audio/${encodeURIComponent(name)}`, album:"未分专辑" });
+        if (r.ok) exist.push({ title:titleFromName(name), file:name, url:`/audio/${encodeURIComponent(name)}`, album:"未分专辑" });
       }catch{}
     }));
-    if (exist.length>=1) break; // 找到一些就够用
+    if (exist.length>=1) break;
   }
   return exist;
 }
@@ -259,8 +432,15 @@ async function probeCommon(){
       catch(e3){ tracks = []; }
     }
   }
+
+  if (!tracks.length){
+    render();
+    return;
+  }
+
+  buildAlbums();
   render();
-  if (tracks.length) load(0, false);
+  load(0, false);
 })();
 </script>
 </body>
